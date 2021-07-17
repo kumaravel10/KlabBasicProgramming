@@ -1,0 +1,57 @@
+import java.util.*;
+
+class Interval{
+int start;
+int end;
+
+public Interval(int start,int end){
+this.start = start;
+this.end = end;
+}
+}
+
+public class MergeIntervals{
+
+public static List<Interval> mergeIntervals(List<Interval> input){
+	if(input.isEmpty()){
+	return new ArrayList<>();
+	}
+	List<Interval> result = new ArrayList<>();
+
+	Collections.sort(input, (a,b) -> Integer.compare(a.start,b.start));
+
+	Iterator<Interval> itr = input.iterator();
+	
+	Interval it = itr.next();
+	int start = it.start;
+	int end = it.end;
+	
+	while(itr.hasNext()){
+	Interval current = itr.next();
+	if(current.start < end) {
+	end = Math.max(end,current.end);
+	} else{
+	result.add(new Interval(start,end));
+	start = current.start;
+	end = current.end;
+	}
+        result.add(new Interval(start,end));
+        }
+	
+	return result;
+	}
+
+public static void main(String[] args){
+ List<Interval> input = new ArrayList<>();
+	input.add(new Interval(2,5));
+	input.add(new Interval(4,10));
+	input.add(new Interval(11,15));
+	input.add(new Interval(12,14));
+
+	List<Interval> result = MergeIntervals.mergeIntervals(input);
+	
+	for(Interval r : result){
+	 System.out.println("("+r.start+","+r.end+")");
+	}
+}
+}
