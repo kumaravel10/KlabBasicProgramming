@@ -1,0 +1,37 @@
+public class HappyNumber{
+
+public static boolean isHappyNumber(int val){
+	if(val == 1){
+	return true;
+	}
+	int slow = val;
+	int fast = val;
+	
+	do{
+	slow = getSquareNum(slow);
+	fast = getSquareNum(getSquareNum(fast));
+	}while(slow != fast);
+	
+	if(slow == 1){
+	return true;
+	}
+return false;
+}
+
+public static int getSquareNum(int sqNum){
+	int t = sqNum;
+	int sum = 0;
+	while(t > 0){
+	int s = t % 10;
+	sum = sum + (s * s);
+	t = t /10;
+	}
+return sum;
+}
+
+public static void main(String[] args) {
+	System.out.println(HappyNumber.isHappyNumber(19));
+	System.out.println(HappyNumber.isHappyNumber(25));
+}
+
+}
